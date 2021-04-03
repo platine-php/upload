@@ -1,0 +1,68 @@
+{
+    "name": "platine-php/upload",
+    "description": "Platine Upload provides a flexible file uploads with extensible validation and storage strategies.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["application", "storage", "framework", "php", "platine", "upload", "container"],
+    "authors": [
+        {
+            "name": "NGUEREZA Tony",
+            "email": "nguerezatony@gmail.com",
+            "homepage": "http://www.iacademy.cf",
+            "role": "developer"
+        }
+    ],
+
+    "support": {
+        "issues": "https://github.com/platine-php/upload/issues",
+        "source": "https://github.com/platine-php/upload"
+    },
+	
+    "require": {
+        "php": "^7.4 || ^8",
+        "platine-php/http": "1.0.x-dev",
+        "platine-php/validator": "1.0.x-dev"
+    },
+	
+    "require-dev": {
+        "phpmd/phpmd": "@stable",
+        "phpstan/phpstan": "0.12.x-dev",
+        "phpunit/phpunit": "^9.5",
+        "platine-php/test-tools": "1.0.x-dev",
+        "squizlabs/php_codesniffer": "3.*"
+    },
+    
+    "autoload": {
+        "psr-4":{
+            "Platine\\Upload\\": "src/"
+        }
+    },
+    
+    "autoload-dev": {
+        "psr-4":{
+            "Platine\\Test\\": "tests"
+        },
+        "files": ["tests/fixtures/mocks.php"]
+    },
+    
+    "config": {
+        "sort-packages": true
+    },
+    
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "1.0.x-dev"
+        }
+    },
+
+    "scripts": {
+        "test": "phpunit --colors=always",
+        "static": "phpstan analyze",
+        "check": "phpcs",
+        "check-fix": "phpcbf",
+        "analyze": "phpmd src xml phpmd.xml"
+    },
+	
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

@@ -9,7 +9,11 @@
  * This content is released under the MIT License (MIT)
  *
  * Copyright (c) 2020 Platine Upload
- * Copyright (c) 2014 Adrian Miu
+ * 
+ * @author      Josh Lockhart <info@joshlockhart.com>
+ * @copyright   2012 Josh Lockhart
+ * @link        http://www.joshlockhart.com
+ * @version     2.0.0
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal

@@ -31,11 +31,11 @@
  */
 
 /**
- *  @file UploadInterface.php
+ *  @file Size.php
  *
- *  The UploadInterface class
+ *  The max file upload size validation rule class
  *
- *  @package    Platine\Upload
+ *  @package    Platine\Upload\Validator
  *  @author Platine Developers Team
  *  @copyright  Copyright (c) 2020
  *  @license    http://opensource.org/licenses/MIT  MIT License
@@ -46,14 +46,57 @@
 
 declare(strict_types=1);
 
-namespace Platine\Upload;
+namespace Platine\Upload\Validator\Rule;
+
+use Platine\Upload\File\File;
+use Platine\Upload\Util\Helper;
+use Platine\Upload\Validator\RuleInterface;
 
 /**
- * Class UploadInterface
- * @package Platine\Upload
+ * Class Size
+ * @package Platine\Upload\Validator\Rule
  */
-interface UploadInterface
+class Size implements RuleInterface
 {
 
+    /**
+     * The uploaded file max size
+     * @var int
+     */
+    protected int $size;
 
+    /**
+     * Create new instance
+     * @param int|string $size
+     */
+    public function __construct($size)
+    {
+        if (!is_int($size)) {
+            $size = Helper::sizeInBytes($size);
+        }
+
+        $this->size = $size;
+    }
+
+    /**
+     * {@inheritdoc}
+     * @see RuleInterface
+     */
+    public function validate(File $file): bool
+    {
+        return $file->getSize() <= $this->size;
+    }
+
+    /**
+     * {@inheritdoc}
+     * @see RuleInterface
+     */
+    public function getErrorMessage(File $file): string
+    {
+        return sprintf(
+            'The uploaded file size [%s] is too big, max file size is [%s]',
+            Helper::formatSize($file->getSize()),
+            Helper::formatSize($this->size)
+        );
+    }
 }

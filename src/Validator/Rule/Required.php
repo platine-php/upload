@@ -31,9 +31,9 @@
  */
 
 /**
- *  @file UploadValidator.php
+ *  @file Required.php
  *
- *  The Upload Validator class
+ *  The Required validation rule class
  *
  *  @package    Platine\Upload\Validator
  *  @author Platine Developers Team
@@ -46,15 +46,32 @@
 
 declare(strict_types=1);
 
-namespace Platine\Upload\Validator;
+namespace Platine\Upload\Validator\Rule;
 
-use Platine\Validator\Validator;
+use Platine\Upload\File\File;
+use Platine\Upload\Validator\RuleInterface;
 
 /**
- * Class UploadValidator
- * @package Platine\Upload\Validator
+ * Class Required
+ * @package Platine\Upload\Validator\Rule
  */
-class UploadValidator extends Validator
+class Required implements RuleInterface
 {
+    /**
+     * {@inheritdoc}
+     * @see RuleInterface
+     */
+    public function validate(File $file): bool
+    {
+        return $file->getError() !== UPLOAD_ERR_NO_FILE;
+    }
 
+    /**
+     * {@inheritdoc}
+     * @see RuleInterface
+     */
+    public function getErrorMessage(File $file): string
+    {
+        return 'No file was choosed. Please select one.';
+    }
 }

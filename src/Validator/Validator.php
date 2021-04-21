@@ -31,11 +31,11 @@
  */
 
 /**
- *  @file StorageInterface.php
+ *  @file Validator.php
  *
- *  The Upload Storage Interface
+ *  The Upload Validator class
  *
- *  @package    Platine\Upload\Storage
+ *  @package    Platine\Upload\Validator
  *  @author Platine Developers Team
  *  @copyright  Copyright (c) 2020
  *  @license    http://opensource.org/licenses/MIT  MIT License
@@ -46,22 +46,71 @@
 
 declare(strict_types=1);
 
-namespace Platine\Upload\Storage;
+namespace Platine\Upload\Validator;
 
-use Platine\Upload\File\File;
-use Platine\Upload\File\UploadFileInfo;
+use InvalidArgumentException;
 
 /**
- * Class StorageInterface
- * @package Platine\Upload\Storage
+ * Class Validator
+ * @package Platine\Upload\Validator
  */
-interface StorageInterface
+class Validator
 {
 
     /**
-     * Move the uploaded file to destination
-     * @param File $file
-     * @return UploadFileInfo
+     * The validate rules
+     * @var array<int, RuleInterface>
      */
-    public function upload(File $file): UploadFileInfo;
+    protected array $rules = [];
+
+    /**
+     * Create new instance
+     * @param array<int, RuleInterface> $rules
+     */
+    public function __construct(array $rules = [])
+    {
+        $this->rules = $rules;
+    }
+
+    /**
+     * Add validation rule
+     * @param RuleInterface $rule
+     * @return $this
+     */
+    public function addRule(RuleInterface $rule): self
+    {
+        $this->rules[] = $rule;
+
+        return $this;
+    }
+
+    /**
+     * Add array of rules
+     * @param array<int, RuleInterface> $rules
+     * @return $this
+     */
+    public function addRules(array $rules): self
+    {
+        foreach ($rules as $rule) {
+            if (!$rule instanceof RuleInterface) {
+                throw new InvalidArgumentException(sprintf(
+                    'Each rule must be an instance of [%s]',
+                    RuleInterface::class
+                ));
+            }
+
+            $this->addRule($rule);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Return the validation rules
+     * @return array<int, RuleInterface>
+     */
+    public function getRules(): array
+    {
+        return $this->rules;
+    }
 }

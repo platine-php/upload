@@ -31,11 +31,11 @@
  */
 
 /**
- *  @file StorageInterface.php
+ *  @file MimeType.php
  *
- *  The Upload Storage Interface
+ *  The file upload mime type validation rule class
  *
- *  @package    Platine\Upload\Storage
+ *  @package    Platine\Upload\Validator
  *  @author Platine Developers Team
  *  @copyright  Copyright (c) 2020
  *  @license    http://opensource.org/licenses/MIT  MIT License
@@ -46,22 +46,57 @@
 
 declare(strict_types=1);
 
-namespace Platine\Upload\Storage;
+namespace Platine\Upload\Validator\Rule;
 
 use Platine\Upload\File\File;
-use Platine\Upload\File\UploadFileInfo;
+use Platine\Upload\Util\Helper;
+use Platine\Upload\Validator\RuleInterface;
 
 /**
- * Class StorageInterface
- * @package Platine\Upload\Storage
+ * Class MimeType
+ * @package Platine\Upload\Validator\Rule
  */
-interface StorageInterface
+class MimeType implements RuleInterface
 {
 
     /**
-     * Move the uploaded file to destination
-     * @param File $file
-     * @return UploadFileInfo
+     * The list of allowed uploaded file mime type
+     * @var array<int, string>
      */
-    public function upload(File $file): UploadFileInfo;
+    protected array $mimeTypes;
+
+    /**
+     * Create new instance
+     * @param array<int, string>|string $mimeType
+     */
+    public function __construct($mimeType)
+    {
+        if (!is_array($mimeType)) {
+            $mimeType = [$mimeType];
+        }
+
+        $this->mimeTypes = $mimeType;
+    }
+
+    /**
+     * {@inheritdoc}
+     * @see RuleInterface
+     */
+    public function validate(File $file): bool
+    {
+        return in_array($file->getMimeType(), $this->mimeTypes);
+    }
+
+    /**
+     * {@inheritdoc}
+     * @see RuleInterface
+     */
+    public function getErrorMessage(File $file): string
+    {
+        return sprintf(
+            'The uploaded file type [%s] is not allowed, expected [%s]',
+            $file->getMimeType(),
+            implode(', ', $this->mimeTypes)
+        );
+    }
 }

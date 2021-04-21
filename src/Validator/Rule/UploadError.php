@@ -31,11 +31,11 @@
  */
 
 /**
- *  @file Collection.php
+ *  @file UploadError.php
  *
- *  The Upload Collection class
+ *  The PHP upload constants UPLOAD_ERR_* validation rule class
  *
- *  @package    Platine\Upload\File
+ *  @package    Platine\Upload\Validator
  *  @author Platine Developers Team
  *  @copyright  Copyright (c) 2020
  *  @license    http://opensource.org/licenses/MIT  MIT License
@@ -46,17 +46,45 @@
 
 declare(strict_types=1);
 
-namespace Platine\Upload\File;
+namespace Platine\Upload\Validator\Rule;
 
-use ArrayIterator;
+use Platine\Upload\File\File;
+use Platine\Upload\Validator\RuleInterface;
 
 /**
- * Class Collection
- * @package Platine\Upload\File
- * @extends ArrayIterator<string, FileInterface>
+ * Class UploadError
+ * @package Platine\Upload\Validator\Rule
  */
-class Collection extends ArrayIterator implements FileInterface
+class UploadError implements RuleInterface
 {
+    /**
+     * {@inheritdoc}
+     * @see RuleInterface
+     */
+    public function validate(File $file): bool
+    {
+        return $file->getError() === UPLOAD_ERR_OK
+                || $file->getError() === UPLOAD_ERR_NO_FILE;
+    }
 
+    /**
+     * {@inheritdoc}
+     * @see RuleInterface
+     */
+    public function getErrorMessage(File $file): string
+    {
+        $errorMaps = [
+            1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
+            2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+            3 => 'The uploaded file was only partially uploaded',
+            4 => 'No file was uploaded',
+            6 => 'Missing a temporary folder',
+            7 => 'Failed to write file to disk.',
+            8 => 'A PHP extension stopped the file upload.',
+        ];
 
+        return isset($errorMaps[$file->getError()])
+                ? $errorMaps[$file->getError()]
+                : '';
+    }
 }

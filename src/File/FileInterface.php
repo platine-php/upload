@@ -33,7 +33,7 @@
 /**
  *  @file FileInterface.php
  *
- *  The Upload FileInterface
+ *  The Uploaded file FileInterface
  *
  *  @package    Platine\Upload\File
  *  @author Platine Developers Team
@@ -55,5 +55,65 @@ namespace Platine\Upload\File;
 interface FileInterface
 {
 
+    /**
+     * Return the path name of uploaded file
+     * @return string
+     */
+    public function getPathname(): string;
 
+    /**
+     * Return the name of uploaded file
+     * @return string
+     */
+    public function getName(): string;
+
+    /**
+     * Set the uploaded file name
+     * @param string $name
+     * @return self
+     */
+    public function setName(string $name): self;
+
+    /**
+     * Return the name of uploaded file extension
+     * @return string
+     */
+    public function getExtension(): string;
+
+    /**
+     * Set the uploaded file extension
+     * @param string $name
+     * @return self
+     */
+    public function setExtension(string $name): self;
+
+    /**
+     * Return the full name (name with extension) of uploaded file
+     * @return string
+     */
+    public function getFullName(): string;
+
+    /**
+     * Return the mime type of uploaded file
+     * @return string
+     */
+    public function getMimeType(): string;
+
+    /**
+     * Return the size of uploaded file
+     * @return int
+     */
+    public function getSize(): int;
+
+    /**
+     * Return the MD5 hash of uploaded file
+     * @return string
+     */
+    public function getMD5(): string;
+
+    /**
+     * Return the error code of uploaded file
+     * @return int
+     */
+    public function getError(): int;
 }

@@ -31,11 +31,11 @@
  */
 
 /**
- *  @file BatchUpload.php
+ *  @file RuleInterface.php
  *
- *  The batch Upload class
+ *  The Upload validation rule interface class
  *
- *  @package    Platine\Upload
+ *  @package    Platine\Upload\Validator
  *  @author Platine Developers Team
  *  @copyright  Copyright (c) 2020
  *  @license    http://opensource.org/licenses/MIT  MIT License
@@ -46,14 +46,30 @@
 
 declare(strict_types=1);
 
-namespace Platine\Upload;
+namespace Platine\Upload\Validator;
+
+use Platine\Upload\File\File;
 
 /**
- * Class BatchUpload
- * @package Platine\Upload
+ * Class RuleInterface
+ * @package Platine\Upload\Validator
  */
-class BatchUpload
+interface RuleInterface
 {
 
+    /**
+     * Method to validate this Rule
+     *
+     * @param  File $file the file to validate
+     * @return bool              the validation status
+     */
+    public function validate(File $file): bool;
 
+    /**
+     * Return error message for this Rule
+     *
+     * @param  File $file  the value of field
+     * @return string
+     */
+    public function getErrorMessage(File $file): string;
 }

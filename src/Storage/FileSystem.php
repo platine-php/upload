@@ -48,6 +48,12 @@ declare(strict_types=1);
 
 namespace Platine\Upload\Storage;
 
+use InvalidArgumentException;
+use Platine\Upload\Exception\StorageException;
+use Platine\Upload\Exception\UploadException;
+use Platine\Upload\File\File;
+use Platine\Upload\File\UploadFileInfo;
+
 /**
  * Class FileSystem
  * @package Platine\Upload\Storage
@@ -55,5 +61,95 @@ namespace Platine\Upload\Storage;
 class FileSystem implements StorageInterface
 {
 
+    /**
+     * Path to move uploaded files
+     * @var string
+     */
+    protected string $path;
 
+    /**
+     * Whether to overwrite existing file
+     * @var bool
+     */
+    protected bool $overwrite = false;
+
+    /**
+     * Create new instance
+     * @param string $path
+     * @param bool $overwrite
+     */
+    public function __construct(string $path, bool $overwrite)
+    {
+        $this->overwrite = $overwrite;
+        $directory = $this->normalizePath($path);
+
+        if (!is_dir($directory)) {
+            throw new InvalidArgumentException(sprintf(
+                'Directory [%s] does not exist',
+                $directory
+            ));
+        }
+
+        if (!is_writable($directory)) {
+            throw new InvalidArgumentException(sprintf(
+                'Directory [%s] is not writable',
+                $directory
+            ));
+        }
+
+        $this->path = $directory;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function upload(File $file): UploadFileInfo
+    {
+        $destinationFile = $this->path . $file->getFullName();
+        if (!$this->overwrite && file_exists($destinationFile)) {
+            throw new StorageException(sprintf(
+                'File [%s] already exists',
+                $destinationFile
+            ));
+        }
+
+        $uploaded = $this->moveUploadedFile($file->getPathname(), $destinationFile);
+        if ($uploaded) {
+            return new UploadFileInfo(
+                $destinationFile,
+                $file->getMimeType(),
+                $file->getError(),
+                $file->getSize()
+            );
+        }
+
+        throw new UploadException(sprintf(
+            'Error occured when move uploaded file [%s] to [%s]',
+            $file->getPathname(),
+            $destinationFile
+        ));
+    }
+
+    /**
+     * Move the uploaded file to final destination
+     * @param string $source
+     * @param string $destination
+     * @return bool
+     */
+    protected function moveUploadedFile(string $source, string $destination): bool
+    {
+        return copy($source, $destination);
+    }
+
+    /**
+     * Normalize the directory path
+     * @param string $path
+     * @return string
+     */
+    protected function normalizePath(string $path): string
+    {
+        $directory = rtrim($path, '\\/');
+
+        return realpath($directory) . DIRECTORY_SEPARATOR;
+    }
 }

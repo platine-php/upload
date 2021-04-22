@@ -9,7 +9,7 @@
  * This content is released under the MIT License (MIT)
  *
  * Copyright (c) 2020 Platine Upload
- * 
+ *
  * @author      Josh Lockhart <info@joshlockhart.com>
  * @copyright   2012 Josh Lockhart
  * @link        http://www.joshlockhart.com
@@ -99,13 +99,11 @@ class Upload
      */
     protected string $filename;
 
-
     /**
      * The uploaded file information
      * @var UploadFileInfo|array<int, UploadFileInfo>|bool
      */
     protected $uploadInfo = false;
-
 
     /**
      * Create new instance
@@ -118,8 +116,7 @@ class Upload
         StorageInterface $storage,
         ?Validator $validator = null
     ) {
-        // Check if file uploads are allowed
-        if ((bool)ini_get('file_uploads') === false) {
+        if ((bool) ini_get('file_uploads') === false) {
             throw new RuntimeException('File uploads are disabled in your PHP.ini file');
         }
 

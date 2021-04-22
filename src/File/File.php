@@ -65,7 +65,7 @@ class File extends SplFileInfo implements FileInterface
 {
     /**
      * Factory used to create new instance
-     * @var callable
+     * @var callable|null
      */
     protected static $factory = null;
 
@@ -220,16 +220,12 @@ class File extends SplFileInfo implements FileInterface
 
     /**
      * Set the factory used to create new instance
-     * @param callable $callable
+     * @param callable|null $callable
      * @return void
      * @throws InvalidArgumentException
      */
-    public static function setFactory($callable): void
+    public static function setFactory(?callable $callable = null): void
     {
-        if (!is_callable($callable)) {
-            throw new InvalidArgumentException('Factory is not a valid callback.');
-        }
-
         static::$factory = $callable;
     }
 

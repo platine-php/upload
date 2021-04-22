@@ -162,7 +162,7 @@ class Helper
      */
     protected static function moveUploadedFileToTempDirectory(UploadedFile $file, string $tempDir): void
     {
-        if (!in_array($file->getError(), [UPLOAD_ERR_NO_FILE])) {
+        if (in_array($file->getError(), [UPLOAD_ERR_OK])) {
             $file->moveTo($tempDir);
         }
     }

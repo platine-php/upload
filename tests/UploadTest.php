@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Platine\Test\Upload;
 
 use org\bovigo\vfs\vfsStream;
-use Platine\PlatineTestCase;
+use Platine\Dev\PlatineTestCase;
 use Platine\Upload\File\File;
 use Platine\Upload\File\UploadFileInfo;
 use Platine\Upload\Storage\FileSystem;
@@ -88,6 +88,28 @@ class UploadTest extends PlatineTestCase
         $storage = $this->getMockInstance(FileSystem::class);
         $u = new Upload('foo', $storage);
         $this->assertTrue($u->process());
+    }
+    
+    public function testIsUploaded()
+    {
+        global $mock_iniget_to_true, $mock_rename_to_true;
+
+        $mock_iniget_to_true = true;
+        $mock_rename_to_true = true;
+
+        $tmpFile = $this->createVfsFile('foo.tmp.09080', $this->vfsFilePath, 'foobar');
+
+        $_FILES['foo'] = [
+            'name' => 'foo.png',
+            'tmp_name' => $tmpFile->url(),
+            'size' => 134,
+            'error' => 0,
+            'type' => 'image/png'
+        ];
+
+        $storage = $this->getMockInstance(FileSystem::class);
+        $u = new Upload('foo', $storage);
+        $this->assertTrue($u->isUploaded());
     }
 
     public function testSetFilename()

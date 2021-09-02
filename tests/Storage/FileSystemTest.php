@@ -6,7 +6,7 @@ namespace Platine\Test\Upload\Storage;
 
 use InvalidArgumentException;
 use org\bovigo\vfs\vfsStream;
-use Platine\PlatineTestCase;
+use Platine\Dev\PlatineTestCase;
 use Platine\Upload\Exception\StorageException;
 use Platine\Upload\Exception\UploadException;
 use Platine\Upload\File\File;

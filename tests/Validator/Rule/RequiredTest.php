@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Platine\Test\Upload\Validator\Rule;
 
-use Platine\PlatineTestCase;
+use Platine\Dev\PlatineTestCase;
 use Platine\Upload\File\File;
 use Platine\Upload\Validator\Rule\Required;
 

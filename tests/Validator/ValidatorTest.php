@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Platine\Test\Upload\Validator;
 
 use InvalidArgumentException;
-use Platine\PlatineTestCase;
+use Platine\Dev\PlatineTestCase;
 use Platine\Upload\Validator\Rule\Required;
 use Platine\Upload\Validator\Rule\UploadError;
 use Platine\Upload\Validator\RuleInterface;

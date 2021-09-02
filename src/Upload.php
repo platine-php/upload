@@ -141,6 +141,14 @@ class Upload
         //add default validation rule
         $this->addDefaultValidations();
     }
+    
+    /**
+    * Whether the file is uploaded
+    */
+    public function isUploaded(): bool
+    {
+        return count($this->files) > 0;
+    }
 
     /**
      * Set custom filename

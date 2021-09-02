@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Platine\Test\Upload\Util;
 
-use Platine\PlatineTestCase;
+use Platine\Dev\PlatineTestCase;
 use Platine\Upload\Util\Helper;
 
 /**

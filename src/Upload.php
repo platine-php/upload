@@ -147,7 +147,8 @@ class Upload
     */
     public function isUploaded(): bool
     {
-        return count($this->files) > 0;
+        return count($this->files) > 0 
+				&& $this->files[0]->getMimeType() !== 'application/x-empty';
     }
 
     /**

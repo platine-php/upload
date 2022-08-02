@@ -110,11 +110,13 @@ class Upload
      * @param string $key the file key to use
      * @param StorageInterface $storage
      * @param Validator|null $validator
+     * @param array<mixed> $uploadedFiles
      */
     public function __construct(
         string $key,
         StorageInterface $storage,
-        ?Validator $validator = null
+        ?Validator $validator = null,
+        array $uploadedFiles = []
     ) {
         if ((bool) ini_get('file_uploads') === false) {
             throw new RuntimeException('File uploads are disabled in your PHP.ini file');
@@ -122,8 +124,10 @@ class Upload
 
         $this->storage = $storage;
         $this->validator = $validator ? $validator : new Validator();
-
-        $uploadedFiles = UploadedFile::createFromGlobals();
+        
+        if(empty($uploadedFiles)){
+            $uploadedFiles = UploadedFile::createFromGlobals();
+        }
 
         $files = Helper::normalizeFiles($uploadedFiles);
 
@@ -148,7 +152,7 @@ class Upload
     public function isUploaded(): bool
     {
         return count($this->files) > 0 
-				&& $this->files[0]->getMimeType() !== 'application/x-empty';
+	       && $this->files[0]->getMimeType() !== 'application/x-empty';
     }
 
     /**

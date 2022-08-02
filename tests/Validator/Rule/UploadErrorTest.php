@@ -17,7 +17,6 @@ use Platine\Upload\Validator\Rule\UploadError;
  */
 class UploadErrorTest extends PlatineTestCase
 {
-
     public function testAllSuccess(): void
     {
         $f = new UploadError();

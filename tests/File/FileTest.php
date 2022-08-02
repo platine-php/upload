@@ -17,7 +17,6 @@ use RuntimeException;
  */
 class FileTest extends PlatineTestCase
 {
-
     protected $vfsRoot;
     protected $vfsFilePath;
     protected function setUp(): void

@@ -16,7 +16,6 @@ use Platine\Upload\Util\Helper;
  */
 class HelperTest extends PlatineTestCase
 {
-
     public function testSizeInBytes(): void
     {
         $expectedB = 1;

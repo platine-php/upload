@@ -64,7 +64,6 @@ use Platine\Upload\File\UploadFileInfo;
  */
 class FileSystem implements StorageInterface
 {
-
     /**
      * Path to move uploaded files
      * @var string

@@ -62,7 +62,6 @@ use Platine\Upload\Validator\RuleInterface;
  */
 class Size implements RuleInterface
 {
-
     /**
      * The uploaded file max size
      * @var int

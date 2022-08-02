@@ -17,7 +17,6 @@ use Platine\Upload\Validator\Rule\Size;
  */
 class SizeTest extends PlatineTestCase
 {
-
     public function testParamIsInteger(): void
     {
         $f = new Size(1024);

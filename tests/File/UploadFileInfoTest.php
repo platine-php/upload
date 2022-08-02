@@ -16,7 +16,6 @@ use Platine\Upload\File\UploadFileInfo;
  */
 class UploadFileInfoTest extends PlatineTestCase
 {
-
     protected $vfsRoot;
     protected $vfsFilePath;
     protected function setUp(): void

@@ -22,7 +22,6 @@ use Platine\Upload\Storage\FileSystem;
  */
 class FileSystemTest extends PlatineTestCase
 {
-
     protected $vfsRoot;
     protected $vfsFilePath;
     protected function setUp(): void

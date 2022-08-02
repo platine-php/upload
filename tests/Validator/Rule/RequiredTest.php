@@ -17,7 +17,6 @@ use Platine\Upload\Validator\Rule\Required;
  */
 class RequiredTest extends PlatineTestCase
 {
-
     public function testAllSuccess(): void
     {
         $f = new Required();

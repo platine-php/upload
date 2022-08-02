@@ -61,7 +61,6 @@ use Platine\Upload\File\UploadFileInfo;
  */
 interface StorageInterface
 {
-
     /**
      * Move the uploaded file to destination
      * @param File $file

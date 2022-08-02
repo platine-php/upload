@@ -60,7 +60,6 @@ use InvalidArgumentException;
  */
 class Validator
 {
-
     /**
      * The validate rules
      * @var array<int, RuleInterface>
@@ -116,5 +115,16 @@ class Validator
     public function getRules(): array
     {
         return $this->rules;
+    }
+
+    /**
+     * Reset the validation instance
+     * @return $this
+     */
+    public function reset(): self
+    {
+        $this->rules = [];
+
+        return $this;
     }
 }

@@ -21,7 +21,6 @@ use stdClass;
  */
 class ValidatorTest extends PlatineTestCase
 {
-
     public function testConstructorSuccess(): void
     {
         $f = new Validator();

@@ -23,7 +23,6 @@ use RuntimeException;
  */
 class UploadTest extends PlatineTestCase
 {
-
     protected $vfsRoot;
     protected $vfsFilePath;
 
@@ -89,7 +88,7 @@ class UploadTest extends PlatineTestCase
         $u = new Upload('foo', $storage);
         $this->assertTrue($u->process());
     }
-    
+
     public function testIsUploaded()
     {
         global $mock_iniget_to_true, $mock_rename_to_true;

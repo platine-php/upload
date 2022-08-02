@@ -60,7 +60,6 @@ use Platine\Upload\File\File;
  */
 interface RuleInterface
 {
-
     /**
      * Method to validate this Rule
      *

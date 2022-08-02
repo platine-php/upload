@@ -62,7 +62,6 @@ use Platine\Upload\Validator\RuleInterface;
  */
 class MimeType implements RuleInterface
 {
-
     /**
      * The list of allowed uploaded file mime type
      * @var array<int, string>

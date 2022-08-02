@@ -17,7 +17,6 @@ use Platine\Upload\Validator\Rule\MimeType;
  */
 class MimeTypeTest extends PlatineTestCase
 {
-
     public function testParamIsString(): void
     {
         $f = new MimeType('image/png');

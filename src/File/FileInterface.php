@@ -58,7 +58,6 @@ namespace Platine\Upload\File;
  */
 interface FileInterface
 {
-
     /**
      * Return the path name of uploaded file
      * @return string

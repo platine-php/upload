@@ -47,10 +47,13 @@ class UploadTest extends PlatineTestCase
 
     public function testConstructorSuccessUploadedFileSingle()
     {
-        global $mock_iniget_to_true, $mock_rename_to_true;
+        global $mock_iniget_to_true, $mock_rename_to_true, $mock_tempnam_to_vfs;
 
         $mock_iniget_to_true = true;
         $mock_rename_to_true = true;
+        $mock_tempnam_to_vfs = $this->createVfsDirectory('tmp', $this->vfsFilePath)
+                               ->url()
+                               . '/foo.png';
 
         $tmpFile = $this->createVfsFile('foo.tmp.09080', $this->vfsFilePath, 'foobar');
 

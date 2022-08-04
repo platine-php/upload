@@ -68,7 +68,6 @@ use RuntimeException;
  */
 class Upload
 {
-
     /**
      * Upload Storage
      * @var StorageInterface
@@ -124,8 +123,8 @@ class Upload
 
         $this->storage = $storage;
         $this->validator = $validator ? $validator : new Validator();
-        
-        if(empty($uploadedFiles)){
+
+        if (empty($uploadedFiles)) {
             $uploadedFiles = UploadedFile::createFromGlobals();
         }
 
@@ -145,14 +144,14 @@ class Upload
         //add default validation rule
         $this->addDefaultValidations();
     }
-    
+
     /**
     * Whether the file is uploaded
     */
     public function isUploaded(): bool
     {
-        return count($this->files) > 0 
-	       && $this->files[0]->getMimeType() !== 'application/x-empty';
+        return count($this->files) > 0
+           && $this->files[0]->getMimeType() !== 'application/x-empty';
     }
 
     /**
@@ -199,6 +198,9 @@ class Upload
      */
     public function isValid(): bool
     {
+        if (! $this->isUploaded()) {
+            return false;
+        }
         foreach ($this->files as $file) {
             $this->validateFile($file);
         }

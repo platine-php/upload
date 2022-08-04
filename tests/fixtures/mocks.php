@@ -108,3 +108,18 @@ function copy(string $src, string $dst)
 
     return \copy($src, $dst);
 }
+
+namespace Platine\Upload\Util;
+
+$mock_tempnam_to_vfs = false;
+
+function tempnam(string $dir, string $id)
+{
+    global $mock_tempnam_to_vfs;
+
+    if (!is_bool($mock_tempnam_to_vfs)) {
+        return $mock_tempnam_to_vfs;
+    }
+
+    return \tempnam($dir, $id);
+}

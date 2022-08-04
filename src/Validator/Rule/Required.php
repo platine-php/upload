@@ -67,7 +67,8 @@ class Required implements RuleInterface
      */
     public function validate(File $file): bool
     {
-        return $file->getError() !== UPLOAD_ERR_NO_FILE;
+        return $file->getError() !== UPLOAD_ERR_NO_FILE
+               && $file->getMimeType() !== 'application/x-empty';
     }
 
     /**

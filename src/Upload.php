@@ -150,8 +150,7 @@ class Upload
     */
     public function isUploaded(): bool
     {
-        return count($this->files) > 0
-           && $this->files[0]->getMimeType() !== 'application/x-empty';
+        return count($this->files) > 0;
     }
 
     /**
@@ -198,9 +197,6 @@ class Upload
      */
     public function isValid(): bool
     {
-        if (! $this->isUploaded()) {
-            return false;
-        }
         foreach ($this->files as $file) {
             $this->validateFile($file);
         }

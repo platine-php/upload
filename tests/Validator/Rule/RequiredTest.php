@@ -25,10 +25,20 @@ class RequiredTest extends PlatineTestCase
         $this->assertNotEmpty($f->getErrorMessage($file));
     }
 
-    public function testAllFailed(): void
+    public function testNoFileFailed(): void
     {
         $f = new Required();
         $file = $this->getMockInstance(File::class, ['getError' => UPLOAD_ERR_NO_FILE]);
+        $this->assertFalse($f->validate($file));
+    }
+
+    public function testEmptyFileFailed(): void
+    {
+        $f = new Required();
+        $file = $this->getMockInstance(File::class, [
+            'getError' => UPLOAD_ERR_OK,
+            'getMimeType' => 'application/x-empty',
+        ]);
         $this->assertFalse($f->validate($file));
     }
 }

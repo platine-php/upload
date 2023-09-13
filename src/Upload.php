@@ -43,7 +43,7 @@
  *  @author Platine Developers Team
  *  @copyright  Copyright (c) 2020
  *  @license    http://opensource.org/licenses/MIT  MIT License
- *  @link   http://www.iacademy.cf
+ *  @link   https://www.platine-php.com
  *  @version 1.0.0
  *  @filesource
  */
@@ -181,7 +181,7 @@ class Upload
 
     /**
      * Add validations array
-     * @param array<int, RuleInterface> $rules
+     * @param RuleInterface[] $rules
      * @return self
      */
     public function addValidations(array $rules): self

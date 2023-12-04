@@ -64,6 +64,7 @@ $mock_realpath = false;
 $mock_file_exists_false = false;
 $mock_file_exists_true = false;
 $mock_copy_false = false;
+$mock_is_writable_false = false;
 $mock_copy_true = false;
 
 function realpath(string $filename)
@@ -75,6 +76,17 @@ function realpath(string $filename)
     }
 
     return \realpath($filename);
+}
+
+function is_writable(string $filename)
+{
+    global $mock_is_writable_false;
+
+    if ($mock_is_writable_false) {
+        return false;
+    }
+
+    return \is_writable($filename);
 }
 
 function file_exists(string $filename)

@@ -52,9 +52,11 @@ class FileSystemTest extends PlatineTestCase
 
     public function testConstructorPathNotWritable(): void
     {
+        global $mock_is_writable_false;
+
+        $mock_is_writable_false = true;
         $this->expectException(InvalidArgumentException::class);
-        chmod($this->vfsFilePath->url(), 100);
-        $f = new FileSystem($this->vfsFilePath->url(), true);
+        (new FileSystem($this->vfsFilePath->url(), true));
     }
 
     public function testUploadFileAlreadyExist(): void

@@ -53,11 +53,10 @@ declare(strict_types=1);
 namespace Platine\Upload\Validator\Rule;
 
 use Platine\Upload\File\File;
-use Platine\Upload\Util\Helper;
 use Platine\Upload\Validator\RuleInterface;
 
 /**
- * Class MimeType
+ * @class MimeType
  * @package Platine\Upload\Validator\Rule
  */
 class MimeType implements RuleInterface
@@ -72,7 +71,7 @@ class MimeType implements RuleInterface
      * Create new instance
      * @param array<int, string>|string $mimeType
      */
-    public function __construct($mimeType)
+    public function __construct(array|string $mimeType)
     {
         if (!is_array($mimeType)) {
             $mimeType = [$mimeType];

@@ -53,7 +53,7 @@ declare(strict_types=1);
 namespace Platine\Upload\File;
 
 /**
- * Class UploadFileInfo
+ * @class UploadFileInfo
  * @package Platine\Upload\File
  */
 class UploadFileInfo

@@ -56,7 +56,7 @@ use Platine\Http\UploadedFile;
 use Platine\Upload\File\File;
 
 /**
- * Class Helper
+ * @class Helper
  * @package Platine\Upload\Util
  */
 class Helper
@@ -66,6 +66,7 @@ class Helper
      *
      * @param array<mixed> $files the normalized
      * format of UploadedFile::createFromGlobals()
+     *
      * @return array<string, File>|array<string, array<int, File>>
      */
     public static function normalizeFiles(array $files): array
@@ -91,7 +92,11 @@ class Helper
                 $tempName = (string) tempnam(sys_get_temp_dir(), uniqid());
                 static::moveUploadedFileToTempDirectory($file, $tempName);
 
-                $result[$name] = File::create($tempName, $file->getClientFilename(), $file->getError());
+                $result[$name] = File::create(
+                    $tempName,
+                    $file->getClientFilename(),
+                    $file->getError()
+                );
                 continue;
             }
 
@@ -123,6 +128,7 @@ class Helper
      */
     public static function sizeInBytes(string $size): int
     {
+        $value = 1.0;
         $unit = 'B';
         $units = ['B' => 0, 'K' => 1, 'M' => 2, 'G' => 3, 'T' => 4];
         $matches = [];
@@ -130,7 +136,12 @@ class Helper
         if (array_key_exists('unit', $matches)) {
             $unit = strtoupper($matches['unit']);
         }
-        return (int)(floatval($matches['size']) * pow(1024, $units[$unit]));
+
+        if (array_key_exists('size', $matches)) {
+            $value = floatval($matches['size']);
+        }
+
+        return (int)($value * pow(1024, $units[$unit]));
     }
 
     /**
@@ -148,6 +159,7 @@ class Helper
             if (isset($suffixes[floor($base)])) {
                 $suffix = $suffixes[floor($base)];
             }
+
             return round(pow(1024, $base - floor($base)), $precision) . $suffix;
         }
 
@@ -160,8 +172,10 @@ class Helper
      * @param string $tempDir
      * @return void
      */
-    protected static function moveUploadedFileToTempDirectory(UploadedFile $file, string $tempDir): void
-    {
+    protected static function moveUploadedFileToTempDirectory(
+        UploadedFile $file,
+        string $tempDir
+    ): void {
         if (in_array($file->getError(), [UPLOAD_ERR_OK])) {
             $file->moveTo($tempDir);
         }

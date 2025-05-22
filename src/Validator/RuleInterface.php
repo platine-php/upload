@@ -55,7 +55,7 @@ namespace Platine\Upload\Validator;
 use Platine\Upload\File\File;
 
 /**
- * Class RuleInterface
+ * @class RuleInterface
  * @package Platine\Upload\Validator
  */
 interface RuleInterface

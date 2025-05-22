@@ -53,7 +53,7 @@ declare(strict_types=1);
 namespace Platine\Upload\File;
 
 /**
- * Class FileInterface
+ * @class FileInterface
  * @package Platine\Upload\File
  */
 interface FileInterface
@@ -73,7 +73,7 @@ interface FileInterface
     /**
      * Set the uploaded file name
      * @param string $name
-     * @return self
+     * @return $this
      */
     public function setName(string $name): self;
 
@@ -86,7 +86,7 @@ interface FileInterface
     /**
      * Set the uploaded file extension
      * @param string $name
-     * @return self
+     * @return $this
      */
     public function setExtension(string $name): self;
 

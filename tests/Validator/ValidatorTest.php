@@ -27,6 +27,8 @@ class ValidatorTest extends PlatineTestCase
         $this->assertEmpty($f->getRules());
         $f = new Validator([new Required()]);
         $this->assertCount(1, $f->getRules());
+        $f->reset();
+        $this->assertCount(0, $f->getRules());
     }
 
     public function testAddRuleSuccess(): void
@@ -38,14 +40,6 @@ class ValidatorTest extends PlatineTestCase
         $this->assertCount(1, $rules);
         $this->assertIsArray($rules);
         $this->assertInstanceOf(RuleInterface::class, $rules[0]);
-    }
-
-    public function testAddRulesError(): void
-    {
-        $f = new Validator();
-        $this->assertEmpty($f->getRules());
-        $this->expectException(InvalidArgumentException::class);
-        $f->addRules([new Required(), new stdClass()]);
     }
 
     public function testAddRulesSuccess(): void

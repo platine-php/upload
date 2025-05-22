@@ -55,20 +55,20 @@ namespace Platine\Upload\Validator;
 use InvalidArgumentException;
 
 /**
- * Class Validator
+ * @class Validator
  * @package Platine\Upload\Validator
  */
 class Validator
 {
     /**
      * The validate rules
-     * @var array<int, RuleInterface>
+     * @var RuleInterface[]
      */
     protected array $rules = [];
 
     /**
      * Create new instance
-     * @param array<int, RuleInterface> $rules
+     * @param RuleInterface[] $rules
      */
     public function __construct(array $rules = [])
     {
@@ -89,19 +89,12 @@ class Validator
 
     /**
      * Add array of rules
-     * @param array<int, RuleInterface> $rules
+     * @param RuleInterface[] $rules
      * @return $this
      */
     public function addRules(array $rules): self
     {
         foreach ($rules as $rule) {
-            if (!$rule instanceof RuleInterface) {
-                throw new InvalidArgumentException(sprintf(
-                    'Each rule must be an instance of [%s]',
-                    RuleInterface::class
-                ));
-            }
-
             $this->addRule($rule);
         }
 
@@ -110,7 +103,7 @@ class Validator
 
     /**
      * Return the validation rules
-     * @return array<int, RuleInterface>
+     * @return RuleInterface[]
      */
     public function getRules(): array
     {

@@ -53,11 +53,10 @@ declare(strict_types=1);
 namespace Platine\Upload\Validator\Rule;
 
 use Platine\Upload\File\File;
-use Platine\Upload\Util\Helper;
 use Platine\Upload\Validator\RuleInterface;
 
 /**
- * Class Extension
+ * @class Extension
  * @package Platine\Upload\Validator\Rule
  */
 class Extension implements RuleInterface
@@ -79,7 +78,7 @@ s     */
      * @param array<int, string>|string $extensions
      * @param bool $exclude
      */
-    public function __construct($extensions, bool $exclude = false)
+    public function __construct(array|string $extensions, bool $exclude = false)
     {
         if (!is_array($extensions)) {
             $extensions = [$extensions];
@@ -103,7 +102,7 @@ s     */
             return false;
         }
 
-        if (!$result && !$this->exclude) {
+        if ($result === false && $this->exclude === false) {
             return false;
         }
 
@@ -117,7 +116,7 @@ s     */
     public function getErrorMessage(File $file): string
     {
         return sprintf(
-            'The uploaded file extension [%s] is not allowed/forbidden, [%s]',
+            'The uploaded file extension [%s] is not allowed or forbidden, [%s]',
             $file->getExtension(),
             implode(', ', $this->extensions)
         );

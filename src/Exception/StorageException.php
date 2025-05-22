@@ -38,12 +38,10 @@ declare(strict_types=1);
 
 namespace Platine\Upload\Exception;
 
-use RuntimeException;
-
 /**
- * Class StorageException
+ * @class StorageException
  * @package Platine\Upload\Exception
  */
-class StorageException extends RuntimeException
+class StorageException extends UploadException
 {
 }

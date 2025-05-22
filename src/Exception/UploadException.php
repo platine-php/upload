@@ -41,7 +41,7 @@ namespace Platine\Upload\Exception;
 use RuntimeException;
 
 /**
- * Class UploadException
+ * @class UploadException
  * @package Platine\Upload\Exception
  */
 class UploadException extends RuntimeException

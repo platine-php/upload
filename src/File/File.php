@@ -53,12 +53,11 @@ declare(strict_types=1);
 namespace Platine\Upload\File;
 
 use finfo;
-use InvalidArgumentException;
 use RuntimeException;
 use SplFileInfo;
 
 /**
- * Class File
+ * @class File
  * @package Platine\Upload\File
  */
 class File extends SplFileInfo implements FileInterface
@@ -106,7 +105,6 @@ class File extends SplFileInfo implements FileInterface
         int $error = UPLOAD_ERR_OK
     ) {
         $this->error = $error;
-
         $newName = $name === null ? $filePath : $name;
 
         $this->setName(pathinfo($newName, PATHINFO_FILENAME));
@@ -222,7 +220,6 @@ class File extends SplFileInfo implements FileInterface
      * Set the factory used to create new instance
      * @param callable|null $callable
      * @return void
-     * @throws InvalidArgumentException
      */
     public static function setFactory(?callable $callable = null): void
     {

@@ -63,7 +63,7 @@ use Platine\Upload\Validator\Validator;
 use RuntimeException;
 
 /**
- * Class Upload
+ * @class Upload
  * @package Platine\Upload
  */
 class Upload
@@ -102,7 +102,7 @@ class Upload
      * The uploaded file information
      * @var UploadFileInfo|array<int, UploadFileInfo>|bool
      */
-    protected $uploadInfo = false;
+    protected UploadFileInfo|array|bool $uploadInfo = false;
 
     /**
      * Create new instance
@@ -122,9 +122,9 @@ class Upload
         }
 
         $this->storage = $storage;
-        $this->validator = $validator ? $validator : new Validator();
+        $this->validator = $validator ?? new Validator();
 
-        if (empty($uploadedFiles)) {
+        if (count($uploadedFiles) === 0) {
             $uploadedFiles = UploadedFile::createFromGlobals();
         }
 
@@ -182,7 +182,7 @@ class Upload
     /**
      * Add validations array
      * @param RuleInterface[] $rules
-     * @return self
+     * @return $this
      */
     public function addValidations(array $rules): self
     {
@@ -201,7 +201,7 @@ class Upload
             $this->validateFile($file);
         }
 
-        return empty($this->errors);
+        return count($this->errors) === 0;
     }
 
     /**
@@ -210,7 +210,7 @@ class Upload
      */
     public function process(): bool
     {
-        if (!$this->isValid()) {
+        if ($this->isValid() === false) {
             return false;
         }
 
@@ -244,7 +244,7 @@ class Upload
      * Return the uploaded file information
      * @return UploadFileInfo|array<int, UploadFileInfo>|bool
      */
-    public function getInfo()
+    public function getInfo(): UploadFileInfo|array|bool
     {
         return $this->uploadInfo;
     }
@@ -256,10 +256,8 @@ class Upload
      */
     protected function validateFile(File $file): void
     {
-        foreach ($this->validator->getRules() as $rule) {
-            /** @var RuleInterface $rule */
-            $isValid = $rule->validate($file);
-            if (!$isValid) {
+        foreach ($this->validator->getRules() as /** @var RuleInterface $rule */ $rule) {
+            if ($rule->validate($file) === false) {
                 $this->errors[] = $rule->getErrorMessage($file);
                 break;
             }

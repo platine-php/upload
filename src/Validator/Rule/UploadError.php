@@ -56,7 +56,7 @@ use Platine\Upload\File\File;
 use Platine\Upload\Validator\RuleInterface;
 
 /**
- * Class UploadError
+ * @class UploadError
  * @package Platine\Upload\Validator\Rule
  */
 class UploadError implements RuleInterface
@@ -67,8 +67,10 @@ class UploadError implements RuleInterface
      */
     public function validate(File $file): bool
     {
-        return $file->getError() === UPLOAD_ERR_OK
-                || $file->getError() === UPLOAD_ERR_NO_FILE;
+        return in_array(
+            $file->getError(),
+            [UPLOAD_ERR_OK, UPLOAD_ERR_NO_FILE]
+        );
     }
 
     /**
@@ -87,8 +89,6 @@ class UploadError implements RuleInterface
             8 => 'A PHP extension stopped the file upload.',
         ];
 
-        return isset($errorMaps[$file->getError()])
-                ? $errorMaps[$file->getError()]
-                : '';
+        return $errorMaps[$file->getError()] ?? '';
     }
 }

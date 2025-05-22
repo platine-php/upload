@@ -56,7 +56,7 @@ use Platine\Upload\File\File;
 use Platine\Upload\Validator\RuleInterface;
 
 /**
- * Class Required
+ * @class Required
  * @package Platine\Upload\Validator\Rule
  */
 class Required implements RuleInterface

@@ -59,7 +59,7 @@ use Platine\Upload\File\File;
 use Platine\Upload\File\UploadFileInfo;
 
 /**
- * Class FileSystem
+ * @class FileSystem
  * @package Platine\Upload\Storage
  */
 class FileSystem implements StorageInterface
@@ -86,16 +86,9 @@ class FileSystem implements StorageInterface
         $this->overwrite = $overwrite;
         $directory = $this->normalizePath($path);
 
-        if (!is_dir($directory)) {
+        if (is_dir($directory) === false || is_writable($directory) === false) {
             throw new InvalidArgumentException(sprintf(
-                'Directory [%s] does not exist',
-                $directory
-            ));
-        }
-
-        if (!is_writable($directory)) {
-            throw new InvalidArgumentException(sprintf(
-                'Directory [%s] is not writable',
+                'Directory [%s] does not exist or is not writable',
                 $directory
             ));
         }
@@ -109,7 +102,7 @@ class FileSystem implements StorageInterface
     public function upload(File $file): UploadFileInfo
     {
         $destinationFile = $this->path . $file->getFullName();
-        if (!$this->overwrite && file_exists($destinationFile)) {
+        if ($this->overwrite === false && file_exists($destinationFile)) {
             throw new StorageException(sprintf(
                 'File [%s] already exists',
                 $destinationFile

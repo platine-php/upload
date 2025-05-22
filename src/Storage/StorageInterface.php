@@ -56,7 +56,7 @@ use Platine\Upload\File\File;
 use Platine\Upload\File\UploadFileInfo;
 
 /**
- * Class StorageInterface
+ * @class StorageInterface
  * @package Platine\Upload\Storage
  */
 interface StorageInterface

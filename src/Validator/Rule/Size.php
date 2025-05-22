@@ -57,7 +57,7 @@ use Platine\Upload\Util\Helper;
 use Platine\Upload\Validator\RuleInterface;
 
 /**
- * Class Size
+ * @class Size
  * @package Platine\Upload\Validator\Rule
  */
 class Size implements RuleInterface
@@ -72,9 +72,9 @@ class Size implements RuleInterface
      * Create new instance
      * @param int|string $size
      */
-    public function __construct($size)
+    public function __construct(int|string $size)
     {
-        if (!is_int($size)) {
+        if (is_int($size) === false) {
             $size = Helper::sizeInBytes($size);
         }
 

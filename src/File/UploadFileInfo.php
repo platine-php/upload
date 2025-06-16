@@ -101,17 +101,25 @@ class UploadFileInfo
     protected string $path;
 
     /**
+     * The file checksum
+     * @var string
+     */
+    protected string $checksum;
+
+    /**
      * Create new instance
      * @param string $path
      * @param string $mimeType
      * @param int $error
      * @param int $size
+     * @param string $checksum
      */
     public function __construct(
         string $path,
         string $mimeType,
         int $error,
-        int $size
+        int $size,
+        string $checksum
     ) {
         $this->name = pathinfo($path, PATHINFO_FILENAME);
         $this->extension = pathinfo($path, PATHINFO_EXTENSION);
@@ -119,6 +127,7 @@ class UploadFileInfo
         $this->error = $error;
         $this->size = $size;
         $this->path = $path;
+        $this->checksum = $checksum;
         $this->fullName = basename($path);
     }
 
@@ -129,6 +138,15 @@ class UploadFileInfo
     public function getFullName(): string
     {
         return $this->fullName;
+    }
+
+    /**
+     * Get the checksum of the file
+     * @return string
+     */
+    public function getChecksum(): string
+    {
+        return $this->checksum;
     }
 
     /**

@@ -21,6 +21,7 @@
     "require": {
         "php": "^8",
         "platine-php/http": "^2.0",
+        "platine-php/stdlib": "^2.0",
         "ext-fileinfo": "*"
     },
 	

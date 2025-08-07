@@ -100,7 +100,7 @@ class Upload
 
     /**
      * The uploaded file information
-     * @var UploadFileInfo|array<int, UploadFileInfo>|bool
+     * @var UploadFileInfo|UploadFileInfo[]|bool
      */
     protected UploadFileInfo|array|bool $uploadInfo = false;
 
@@ -242,7 +242,7 @@ class Upload
 
     /**
      * Return the uploaded file information
-     * @return UploadFileInfo|array<int, UploadFileInfo>|bool
+     * @return UploadFileInfo|UploadFileInfo[]|bool
      */
     public function getInfo(): UploadFileInfo|array|bool
     {
@@ -256,7 +256,7 @@ class Upload
      */
     protected function validateFile(File $file): void
     {
-        foreach ($this->validator->getRules() as /** @var RuleInterface $rule */ $rule) {
+        foreach ($this->validator->getRules() as $rule) {
             if ($rule->validate($file) === false) {
                 $this->errors[] = $rule->getErrorMessage($file);
                 break;

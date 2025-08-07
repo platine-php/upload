@@ -52,6 +52,7 @@ declare(strict_types=1);
 
 namespace Platine\Upload\Validator\Rule;
 
+use Platine\Stdlib\Helper\Arr;
 use Platine\Upload\File\File;
 use Platine\Upload\Validator\RuleInterface;
 
@@ -69,15 +70,11 @@ class MimeType implements RuleInterface
 
     /**
      * Create new instance
-     * @param array<int, string>|string $mimeType
+     * @param array<int, string>|string $mimeTypes
      */
-    public function __construct(array|string $mimeType)
+    public function __construct(array|string $mimeTypes)
     {
-        if (!is_array($mimeType)) {
-            $mimeType = [$mimeType];
-        }
-
-        $this->mimeTypes = $mimeType;
+        $this->mimeTypes = Arr::wrap($mimeTypes);
     }
 
     /**
@@ -96,9 +93,8 @@ class MimeType implements RuleInterface
     public function getErrorMessage(File $file): string
     {
         return sprintf(
-            'The uploaded file type [%s] is not allowed, expected [%s]',
-            $file->getMimeType(),
-            implode(', ', $this->mimeTypes)
+            'The uploaded file type [%s] is not allowed',
+            $file->getMimeType()
         );
     }
 }

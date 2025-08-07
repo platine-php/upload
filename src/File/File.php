@@ -136,7 +136,7 @@ class File extends SplFileInfo implements FileInterface
     */
     public function getFullName(): string
     {
-        return $this->extension === '' ?
+        return empty($this->extension) ?
                 $this->name
                 : sprintf('%s.%s', $this->name, $this->extension);
     }

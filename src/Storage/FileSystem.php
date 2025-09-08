@@ -116,7 +116,8 @@ class FileSystem implements StorageInterface
                 $file->getMimeType(),
                 $file->getError(),
                 $file->getSize(),
-                $file->getMD5()
+                $file->getMD5(),
+                $file->getClientName()
             );
         }
 

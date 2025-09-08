@@ -94,6 +94,7 @@ class Helper
 
                 $result[$name] = File::create(
                     $tempName,
+                    (string) $file->getClientFilename(),
                     $file->getClientFilename(),
                     $file->getError()
                 );
@@ -110,6 +111,7 @@ class Helper
 
                         $result[$name][$index] = File::create(
                             $tempName,
+                            (string) $file2->getClientFilename(),
                             $file2->getClientFilename(),
                             $file2->getError()
                         );

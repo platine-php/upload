@@ -61,21 +61,22 @@ class FileTest extends PlatineTestCase
     public function testCreateUsingFactory(): void
     {
         $file = $this->createVfsFile('test.txt', $this->vfsFilePath, 'foobar');
-        File::setFactory(function ($tmpName, $name = null, int $error) {
+        File::setFactory(function ($tmpName, $clientName = '', $name = null, int $error) {
 
-            $f = new File($tmpName, $name, $error);
+            $f = new File($tmpName, $clientName, $name, $error);
             $f->setName('factory');
             return $f;
         });
         $f = File::create($file->url());
         $this->assertEquals(UPLOAD_ERR_OK, $f->getError());
         $this->assertEquals('factory', $f->getName());
+        $this->assertEquals('', $f->getClientName());
     }
 
     public function testCreateUsingFactoryWrongReturnType(): void
     {
         $file = $this->createVfsFile('test.txt', $this->vfsFilePath, 'foobar');
-        File::setFactory(function ($tmpName, $name = null, int $error) {
+        File::setFactory(function ($tmpName, $clientName = '', $name = null, int $error) {
 
             return 'foobar';
         });

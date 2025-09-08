@@ -87,6 +87,12 @@ class File extends SplFileInfo implements FileInterface
     protected string $mimeType = '';
 
     /**
+     * The client file name
+     * @var string
+     */
+    protected string $clientName = '';
+
+    /**
      * The upload status
      * @var int
      */
@@ -96,14 +102,17 @@ class File extends SplFileInfo implements FileInterface
     /**
      * Create new instance
      * @param string $filePath the file absolute path
+     * @param string $clientName the client filename
      * @param string|null $name the desired new name
      * @param int $error
      */
     public function __construct(
         string $filePath,
+        string $clientName = '',
         ?string $name = null,
         int $error = UPLOAD_ERR_OK
     ) {
+        $this->clientName = $clientName;
         $this->error = $error;
         $newName = $name === null ? $filePath : $name;
 
@@ -217,6 +226,16 @@ class File extends SplFileInfo implements FileInterface
     }
 
     /**
+     * Return the client name
+     * @return string
+     */
+    public function getClientName(): string
+    {
+        return $this->clientName;
+    }
+
+
+    /**
      * Set the factory used to create new instance
      * @param callable|null $callable
      * @return void
@@ -229,17 +248,19 @@ class File extends SplFileInfo implements FileInterface
     /**
      * Create new instance of this class
      * @param string $tmpName
+     * @param string $clientName
      * @param string|null $name
      * @param int $error
      * @return self
      */
     public static function create(
         string $tmpName,
+        string $clientName = '',
         ?string $name = null,
         int $error = UPLOAD_ERR_OK
     ): self {
         if (static::$factory !== null) {
-            $file = call_user_func_array(static::$factory, [$tmpName, $name, $error]);
+            $file = call_user_func_array(static::$factory, [$tmpName, $clientName, $name, $error]);
 
             if (!$file instanceof File) {
                 throw new RuntimeException(sprintf(
@@ -251,6 +272,6 @@ class File extends SplFileInfo implements FileInterface
             return $file;
         }
 
-        return new self($tmpName, $name, $error);
+        return new self($tmpName, $clientName, $name, $error);
     }
 }

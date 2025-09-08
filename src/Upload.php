@@ -82,7 +82,7 @@ class Upload
 
     /**
      * The list of uploaded file
-     * @var array<int, File>
+     * @var File[]
      */
     protected array $files = [];
 
